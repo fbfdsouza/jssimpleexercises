@@ -17,13 +17,10 @@ johnFamily = {
                 default:
                     this.tips.push(this.bills[i]*0.1);
                     this.billsAndTips.push(this.bills[i]*1.1);     
-            }
-            
+            }   
         }
-    }
-    
+    }    
 }
-
 
 markFamily = {
     bills:[77,375,110,45],
@@ -43,11 +40,9 @@ markFamily = {
                 default:
                     this.tips.push(this.bills[i]*0.25);
                     this.billsAndTips.push(this.bills[i]*1.25);     
-            }
-            
+            }  
         }
-    }
-    
+    } 
 }
 
 
