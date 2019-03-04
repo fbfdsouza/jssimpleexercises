@@ -1,4 +1,5 @@
 johnFamily = {
+    fullName: 'John Smith',
     bills:[124,48,268,180,42],
     calcTipsAndBills : function(){
         this.tips = [];
@@ -24,7 +25,8 @@ johnFamily = {
 }
 
 markFamily = {
-    bills:[77,375,110,45],
+    fullName: 'Mark Sellers',
+    bills:[77,475,110,45],
     calcTipsAndBills : function(){
         this.tips = [];
         this.billsAndTips = [];
@@ -60,10 +62,10 @@ var averageTip = function(arrayOfTips){
 johnFamily.calcTipsAndBills();
 markFamily.calcTipsAndBills();
 
-averageTipMarkFamily =  averageTip(markFamily.tips);
-averageTipJohnFamily =  averageTip(johnFamily.tips);
+johnFamily.average =  averageTip(johnFamily.tips);
+markFamily.average =  averageTip(markFamily.tips);
 
-averageTipJohnFamily>averageTipMarkFamily ? console.log('John paid more tips at the end'):console.log('Mark paid more tips at the end');
+johnFamily.average >markFamily.average  ? console.log('John paid more tips at the end'):console.log('Mark paid more tips at the end');
 
-console.log('John\'s family average tips ' +averageTipJohnFamily);
-console.log('Mark\'s family average tips ' + averageTipMarkFamily);
+console.log(johnFamily);
+console.log(markFamily);
