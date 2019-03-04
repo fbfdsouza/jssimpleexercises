@@ -1,8 +1,9 @@
 johnFamily = {
     bills:[124,48,268,180,42],
-    tips:[],
-    billsAndTips:[],
     calcTipsAndBills : function(){
+        this.tips = [];
+        this.billsAndTips = [];
+        
         for(var i=0;i<this.bills.length;i++){
              switch(true){
                 case this.bills[i]<50:
@@ -26,9 +27,9 @@ johnFamily = {
 
 markFamily = {
     bills:[77,375,110,45],
-    tips:[],
-    billsAndTips:[],
     calcTipsAndBills : function(){
+        this.tips = [];
+        this.billsAndTips = [];
         for(var i=0;i<this.bills.length;i++){
              switch(true){
                 case this.bills[i]<100:
