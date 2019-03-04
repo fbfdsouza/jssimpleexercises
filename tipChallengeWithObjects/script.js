@@ -5,18 +5,19 @@ johnFamily = {
         this.billsAndTips = [];
         
         for(var i=0;i<this.bills.length;i++){
+            var bill = this.bills[i];
              switch(true){
-                case this.bills[i]<50:
-                    this.tips.push(this.bills[i]*0.2);
-                    this.billsAndTips.push(this.bills[i]*1.2);
+                case bill<50:
+                    this.tips.push(bill*0.2);
+                    this.billsAndTips.push(bill*1.2);
                     break;
-                case this.bills[i]>=50&&this.bills[i]<200:
-                    this.tips.push((this.bills[i]*0.15));
-                    this.billsAndTips.push(this.bills[i]*1.15);
+                case bill>=50&&bill<200:
+                    this.tips.push(bill*0.15);
+                    this.billsAndTips.push(bill*1.15);
                     break;
                 default:
-                    this.tips.push(this.bills[i]*0.1);
-                    this.billsAndTips.push(this.bills[i]*1.1);     
+                    this.tips.push(bill*0.1);
+                    this.billsAndTips.push(bill*1.1);     
             }   
         }
     }    
@@ -28,18 +29,19 @@ markFamily = {
         this.tips = [];
         this.billsAndTips = [];
         for(var i=0;i<this.bills.length;i++){
+            var bill = this.bills[i];
              switch(true){
-                case this.bills[i]<100:
-                    this.tips.push(this.bills[i]*0.2);
-                    this.billsAndTips.push(this.bills[i]*1.2);
+                case bill<100:
+                    this.tips.push(bill*0.2);
+                    this.billsAndTips.push(bill*1.2);
                     break;
-                case this.bills[i]>=100&&this.bills[i]<300:
-                    this.tips.push((this.bills[i]*0.1));
-                    this.billsAndTips.push(this.bills[i]*1.1);
+                case bill>=100&&bill<300:
+                    this.tips.push((bill*0.1));
+                    this.billsAndTips.push(bill*1.1);
                     break;
                 default:
-                    this.tips.push(this.bills[i]*0.25);
-                    this.billsAndTips.push(this.bills[i]*1.25);     
+                    this.tips.push(bill*0.25);
+                    this.billsAndTips.push(bill*1.25);     
             }  
         }
     } 
