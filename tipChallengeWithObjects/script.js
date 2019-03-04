@@ -54,7 +54,7 @@ var averageTip = function(arrayOfTips){
         sum = sum + arrayOfTips[i];
     }
     
-    return sum;
+    return sum/arrayOfTips.length;
 }
 
 johnFamily.calcTipsAndBills();
