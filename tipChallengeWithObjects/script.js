@@ -26,7 +26,7 @@ johnFamily = {
 
 markFamily = {
     fullName: 'Mark Sellers',
-    bills:[77,475,110,45],
+    bills:[77,75,110,45],
     calcTipsAndBills : function(){
         this.tips = [];
         this.billsAndTips = [];
