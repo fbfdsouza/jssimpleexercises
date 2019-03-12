@@ -28,15 +28,15 @@ function calcAge(yearOfBirth){
 function inverviewQuestion(job){
     if(job==='teacher'){
         return function(name){
-            console.log('Which subject do you teach ' + name)
+            console.log('Which subject do you teach ' + name + '?')
         }
     }else if(job==='driver'){
         return function(name){
-            console.log('Did you ever drive uber or 99 pop ' + name);
+            console.log('Did you ever drive uber or 99 pop ' + name + '?');
         }
     }else{
         return function(name){
-            console.log('What do you do for life ' + name);
+            console.log('What do you do for life ' + name + '?');
         }
     }
 }
@@ -44,3 +44,5 @@ function inverviewQuestion(job){
 var teacherQuestion  = inverviewQuestion('teacher');
 
 teacherQuestion('Bruno');
+
+inverviewQuestion('driver')('Francisco');
