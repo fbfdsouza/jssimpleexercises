@@ -1,4 +1,7 @@
 (function(){
+    
+    
+score = 0;
 
 var Question = function (question, answers, correctAnswer, number) {
     this.question = question;
@@ -7,12 +10,9 @@ var Question = function (question, answers, correctAnswer, number) {
     this.number = number;
 }
 
-
 var questions = [new Question('What is Bruno\'s favorite food? ', ['cake', 'chicken wings', 'fruit'], '1', 0),
                  new Question('What is Bruno\'s mother\'s name? ', ['Anne', 'Mary', 'Lucia'], '2', 1),
                  new Question('What is Bruno graduated at? ', ['computer science', 'law', 'history of Brazil'], '0', 2)];
-
-
 
 Question.prototype.ask = function () {
 
@@ -23,10 +23,17 @@ Question.prototype.ask = function () {
 
     var answer = prompt(this.question + ' type exit in order to quit the program');
 
-   if(answer===this.correctAnswer)
+   if(answer===this.correctAnswer){
        console.log('Correct Answer :)');
-    else
+       score++;
+       console.log('Your current score is :' + score);
+       console.log('____________________________________');
+       }
+    else{
        console.log('Not Correct');
+       console.log('Your current score is :' + score);
+       console.log('____________________________________');
+     }
     
     return answer;
 }
@@ -35,12 +42,10 @@ var exit = 'keepAsking';
 
 //randomically select a question from the array questions
 while (exit!='exit') {
-    (
-        function () {
+    
             var questionSelection = Math.floor(Math.random() * 2) + 1;
             var question = questions[questionSelection];
             exit = question.ask();
-
-        })();
+     
 
 }})();
