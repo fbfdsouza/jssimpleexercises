@@ -1,3 +1,5 @@
+(function(){
+
 var Question = function (question, answers, correctAnswer, number) {
     this.question = question;
     this.answers = answers;
@@ -33,12 +35,12 @@ var exit = 'keepAsking';
 
 //randomically select a question from the array questions
 while (exit!='exit') {
-    
-        (function () {
+    (
+        function () {
             var questionSelection = Math.floor(Math.random() * 2) + 1;
             var question = questions[questionSelection];
             exit = question.ask();
 
         })();
 
-}
+}})();
