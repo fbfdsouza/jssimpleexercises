@@ -19,10 +19,14 @@ Question.prototype.ask = function () {
     console.log(this.question)
     for (var i = 0; i < this.answers.length; i++) {
         console.log(i + ': ' + this.answers[i]);
-    }
+    }  
+   
+}
 
+Question.prototype.checkAnswer = function() {
+    
     var answer = prompt(this.question + ' type exit in order to quit the program');
-
+    
    if(answer===this.correctAnswer){
        console.log('Correct Answer :)');
        score++;
@@ -35,7 +39,7 @@ Question.prototype.ask = function () {
        console.log('____________________________________');
      }
     
-    return answer;
+     return answer;
 }
 
 var exit = 'keepAsking';
@@ -43,9 +47,10 @@ var exit = 'keepAsking';
 //randomically select a question from the array questions
 while (exit!='exit') {
     
-            var questionSelection = Math.floor(Math.random() * 2) + 1;
+            var questionSelection = Math.floor(Math.random() * questions.length);
             var question = questions[questionSelection];
-            exit = question.ask();
+            question.ask();
+            exit = question.checkAnswer();
      
 
 }})();
