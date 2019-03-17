@@ -23,19 +23,19 @@ Question.prototype.ask = function () {
    
 }
 
-Question.prototype.checkAnswer = function() {
-    
+Question.prototype.checkAnswer = function(callBack) {
+    var sc;
     var answer = prompt(this.question + ' type exit in order to quit the program');
     
    if(answer===this.correctAnswer){
        console.log('Correct Answer :)');
        score++;
-       console.log('Your current score is :' + score);
+       console.log('Your current score is :' + callBack(true));
        console.log('____________________________________');
        }
     else{
        console.log('Not Correct');
-       console.log('Your current score is :' + score);
+       console.log('Your current score is :' + callBack(false));
        console.log('____________________________________');
      }
     
@@ -43,6 +43,21 @@ Question.prototype.checkAnswer = function() {
 }
 
 var exit = 'keepAsking';
+    
+    
+function updateScore(){
+    var sc = 0;
+    
+    return function(answer){
+        if(answer)
+            return ++sc;
+        else
+            return sc;
+    }
+    
+}
+    
+var updatingScore = updateScore();
 
 //randomically select a question from the array questions
 while (exit!='exit') {
@@ -50,7 +65,7 @@ while (exit!='exit') {
             var questionSelection = Math.floor(Math.random() * questions.length);
             var question = questions[questionSelection];
             question.ask();
-            exit = question.checkAnswer();
+            exit = question.checkAnswer(updatingScore);
      
 
 }})();
