@@ -19,33 +19,55 @@ Question.prototype.ask = function () {
     console.log(this.question)
     for (var i = 0; i < this.answers.length; i++) {
         console.log(i + ': ' + this.answers[i]);
-    }
+    }  
+   
+}
 
+Question.prototype.checkAnswer = function(callBack) {
+    var sc;
     var answer = prompt(this.question + ' type exit in order to quit the program');
-
+    
    if(answer===this.correctAnswer){
        console.log('Correct Answer :)');
        score++;
-       console.log('Your current score is :' + score);
+       console.log('Your current score is :' + callBack(true));
        console.log('____________________________________');
        }
     else{
        console.log('Not Correct');
-       console.log('Your current score is :' + score);
+       console.log('Your current score is :' + callBack(false));
        console.log('____________________________________');
      }
     
-    return answer;
+     return answer;
 }
 
+
 var exit = 'keepAsking';
+    
+    
+function updateScore(){
+    var sc = 0;
+    
+    //the power of closures will give this next function access to the sc variable of the parent function as many as time as it is called
+    return function(answer){
+        if(answer)
+            return ++sc;
+        else
+            return sc;
+    }
+    
+}
+    
+var updatingScore = updateScore();
 
 //randomically select a question from the array questions
 while (exit!='exit') {
     
-            var questionSelection = Math.floor(Math.random() * 2) + 1;
+            var questionSelection = Math.floor(Math.random() * questions.length);
             var question = questions[questionSelection];
-            exit = question.ask();
+            question.ask(); //adding a callback function
+            exit = question.checkAnswer(updatingScore);
      
 
 }})();
