@@ -28,28 +28,43 @@ var budgetController = (function(){
 
 var UIController = (function(){
     
+    var DomStrings = {
+        inputType : '.add__type',
+        inputDescription: '.add__description',
+        inputValue: '.add__value',
+        addBtn: '.add__btn'
+        
+    };
+    
+    return {
+        
+        getInput : function(){
+           return {
+            inputType: document.querySelector(DomStrings.inputType).value,
+            inputDescription: document.querySelector(DomStrings.inputDescription).value,
+            inputValue: document.querySelector(DomStrings.inputValue).value
+           };
+           
+        },
+        
+        getDomStrings : function(){
+            return DomStrings;
+        }
+        
+    };
+    
 })();
 
 var controller = (function(budgeCtrl, UICtrl){
+    var DOM = UICtrl.getDomStrings();
     
     var ctrlAddItem = function() {
-        console.log('It works');
+        console.log(UICtrl.getInput());
     }
     
-    document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+    document.querySelector(DOM.addBtn).addEventListener('click', ctrlAddItem);
     
-    
-    //        var description = document.querySelector('.add__description').value;
-//        var value = document.querySelector('.add__value').value;
-//
-//        budgeCtrl.addExpenses(description,value);
-//            
-//        console.log(budgeCtrl.getExpenses());
-//        console.log(budgeCtrl.getIncome());
-//        
-//    
-//        document.querySelector('.add__description').value = '';
-//        document.querySelector('.add__value').value = '';
+
     
     
     
