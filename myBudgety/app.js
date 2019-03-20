@@ -36,15 +36,15 @@ var budgetController = (function () {
                 ID = 0;
             }
 
-            if (type === 'exp'){
-                 newItem = new Expense(ID, description, value);
-            }else if(type==='inc'){ 
+            if (type === 'exp') {
+                newItem = new Expense(ID, description, value);
+            } else if (type === 'inc') {
                 newItem = new Income(ID, description, value);
             }
-            
-            
-            data.allItems[type].push(newItem);            
-            
+
+
+            data.allItems[type].push(newItem);
+
             return newItem;
 
         },
@@ -78,6 +78,27 @@ var UIController = (function () {
 
         },
 
+        addListItem: function (obj, type) {
+            var html, newHtml, element;
+
+            if (type === 'inc') {
+                element = '.income__list';
+                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }
+
+            if (type === 'exp') {
+                element = '.expenses__list';
+                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }
+            
+            newHtml = html.replace('%id%',obj.id);
+            newHtml = newHtml.replace('%description%',obj.description);
+            newHtml = newHtml.replace('%value%',obj.value);
+            
+            document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);  
+
+        },
+
         getDomStrings: function () {
             return DomStrings;
         }
@@ -106,8 +127,8 @@ var controller = (function (budgeCtrl, UICtrl) {
 
         inputs = UICtrl.getInput();
         newItem = budgeCtrl.addItem(inputs.inputType, inputs.inputDescription, inputs.inputValue);
-        
-        budgeCtrl.showData();
+
+        UICtrl.addListItem(newItem,inputs.inputType);
 
     };
 
