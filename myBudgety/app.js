@@ -1,26 +1,59 @@
 var budgetController = (function () {
-    
-    var Expense = function(id, description, value){
-        this.id=id;
-        this.description=description;
+
+    var Expense = function (id, description, value) {
+        this.id = id;
+        this.description = description;
         this.value = value;
     };
-    
-     var Income = function(id, description, value){
-        this.id=id;
-        this.description=description;
+
+    var Income = function (id, description, value) {
+        this.id = id;
+        this.description = description;
         this.value = value;
     };
-    
+
     var data = {
-            allItems:{
-                inc: [],
-                exp:[]} 
-            },
-            totals:{
-                inc:0,
-                exp:0
+        allItems: {
+            inc: [],
+            exp: []
+        },
+        totals: {
+            inc: 0,
+            exp: 0
+        }
+    };
+
+
+    return {
+
+        addItem: function (type, description, value) {
+
+            var ID, newItem;
+
+            if (data.allItems[type] > 0) {
+                ID = data.allItems[type][data.allItems[type].length - 1] + 1;
+            } else {
+                ID = 0;
             }
+
+            if (type === 'exp'){
+                 newItem = new Expense(ID, description, value);
+            }else if(type==='inc'){ 
+                newItem = new Income(ID, description, value);
+            }
+            
+            
+            data.allItems[type].push(newItem);            
+            
+            return newItem;
+
+        },
+
+        showData: function () {
+            console.log(data);
+        }
+    };
+
 })();
 
 
@@ -69,11 +102,17 @@ var controller = (function (budgeCtrl, UICtrl) {
 
 
     var ctrlAddItem = function () {
-        console.log(UICtrl.getInput());
+        var newItem, inputs;
+
+        inputs = UICtrl.getInput();
+        newItem = budgeCtrl.addItem(inputs.inputType, inputs.inputDescription, inputs.inputValue);
+        
+        budgeCtrl.showData();
+
     };
-    
+
     return {
-        init: function(){
+        init: function () {
             console.log('Application has started');
             setupEventListeners();
         }
