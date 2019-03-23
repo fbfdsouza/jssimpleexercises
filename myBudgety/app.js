@@ -20,11 +20,42 @@ var budgetController = (function () {
         totals: {
             inc: 0,
             exp: 0
-        }
+        },
+        percentage: -1,
+        budget: 0
     };
 
 
     return {
+        
+         calculateTotal: function (type) {
+
+            var sum = 0;
+            data.allItems[type].forEach(function (cur) {
+                sum += cur.value;
+            });
+
+            data.totals[type] = sum;
+
+        },
+        
+        calculateBudget: function () {
+
+            this.calculateTotal('inc');
+            this.calculateTotal('exp');
+
+            
+
+
+            data.budget = data.totals.inc - data.totals.exp;
+
+            if (data.totals.inc > 0) {
+                data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+            } else {
+                data.percentage = -1;
+            }
+
+        },
 
         addItem: function (type, description, value) {
 
@@ -47,6 +78,14 @@ var budgetController = (function () {
 
             return newItem;
 
+        },
+        getBudget: function () {
+            return {
+                budget: data.budget,
+                percentage: data.percentage,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp
+            }
         },
 
         showData: function () {
@@ -73,7 +112,7 @@ var UIController = (function () {
             return {
                 inputType: document.querySelector(DomStrings.inputType).value,
                 inputDescription: document.querySelector(DomStrings.inputDescription).value,
-                inputValue: document.querySelector(DomStrings.inputValue).value
+                inputValue: parseFloat(document.querySelector(DomStrings.inputValue).value)
             };
 
         },
@@ -90,27 +129,27 @@ var UIController = (function () {
                 element = '.expenses__list';
                 html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
-            
-            newHtml = html.replace('%id%',obj.id);
-            newHtml = newHtml.replace('%description%',obj.description);
-            newHtml = newHtml.replace('%value%',obj.value);
-            
-            document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);  
+
+            newHtml = html.replace('%id%', obj.id);
+            newHtml = newHtml.replace('%description%', obj.description);
+            newHtml = newHtml.replace('%value%', obj.value);
+
+            document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
 
         },
-        
-        clearFields: function(){
-            
+
+        clearFields: function () {
+
             var fields, filedsArray;
-            
-            fields = document.querySelectorAll(DomStrings.inputDescription +','+DomStrings.inputValue);
-            
+
+            fields = document.querySelectorAll(DomStrings.inputDescription + ',' + DomStrings.inputValue);
+
             filedsArray = Array.prototype.slice.call(fields);
-            
-            filedsArray.forEach(function(current, index, array){
-                current.value='';
+
+            filedsArray.forEach(function (current, index, array) {
+                current.value = '';
             });
-            
+
             filedsArray[0].focus();
         },
 
@@ -136,6 +175,16 @@ var controller = (function (budgeCtrl, UICtrl) {
 
     };
 
+    function updateBudget() {
+
+        budgeCtrl.calculateBudget();
+
+        var budget = budgeCtrl.getBudget();
+        
+        console.log(budget);
+
+    }
+
 
     var ctrlAddItem = function () {
         var newItem, inputs;
@@ -143,9 +192,11 @@ var controller = (function (budgeCtrl, UICtrl) {
         inputs = UICtrl.getInput();
         newItem = budgeCtrl.addItem(inputs.inputType, inputs.inputDescription, inputs.inputValue);
 
-        UICtrl.addListItem(newItem,inputs.inputType);
-        
+        UICtrl.addListItem(newItem, inputs.inputType);
+
         UICtrl.clearFields();
+
+        updateBudget();
 
     };
 
