@@ -25,26 +25,25 @@ var budgetController = (function () {
         budget: 0
     };
 
+    var calculateTotal = function (type) {
+
+        var sum = 0;
+        data.allItems[type].forEach(function (cur) {
+            sum += cur.value;
+        });
+
+        data.totals[type] = sum;
+
+    }
+
 
     return {
-        
-         calculateTotal: function (type) {
 
-            var sum = 0;
-            data.allItems[type].forEach(function (cur) {
-                sum += cur.value;
-            });
 
-            data.totals[type] = sum;
-
-        },
-        
         calculateBudget: function () {
 
-            this.calculateTotal('inc');
-            this.calculateTotal('exp');
-
-            
+            calculateTotal('inc');
+            calculateTotal('exp');
 
 
             data.budget = data.totals.inc - data.totals.exp;
@@ -52,6 +51,7 @@ var budgetController = (function () {
             if (data.totals.inc > 0) {
                 data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
             } else {
+
                 data.percentage = -1;
             }
 
@@ -180,7 +180,7 @@ var controller = (function (budgeCtrl, UICtrl) {
         budgeCtrl.calculateBudget();
 
         var budget = budgeCtrl.getBudget();
-        
+
         console.log(budget);
 
     }
