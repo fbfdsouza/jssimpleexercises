@@ -24,12 +24,14 @@ class Park extends Element {
 
 class Street extends Element {
 
-    constructor(name, buildYear, slength, sizeClassification) {
+    //default parameter 3
+    constructor(name, buildYear, slength, sizeClassification=3) {
         super(name, buildYear);
         this.slength = slength;
         this.sizeClassification = sizeClassification;
     }
 
+    //use of maps
     classifyStreet() {
         const classification = new Map();
         classification.set(1, 'tiny');
@@ -72,11 +74,13 @@ class Town {
 
     }
 
+    //find the index of a certain element you looking for, stop using for to iterate an array to find elements
     moreThanThousandTree() {
-        this.parks.forEach(current => {
-            if (current.treesNumber > 1000)
-                console.log(`${current.name} has more than a thousand trees`);
-        })
+        
+        const index = this.parks.map(el=>el.treesNumber).findIndex(el=>el>1000);
+        console.log(`${this.parks[index].name} has more than a thousand trees`);
+        
+        
     }
 
     mostTree() {
@@ -135,9 +139,9 @@ const street2 = new Street('Oconnel Street', 1000, 121, 'small');
 const street3 = new Street('George Street', 500, 1000, 'big');
 const street4 = new Street('Parnel Street', 1, 2304, 'huge');*/
 
-//destructuring
+//destructuring, you can use this as the return of a function as well and it will work just fine
 const [street1, street2, street3, street4] = [new Street('Grande Road', 1500, 605, 2), new Street('Oconnel Street', 1000, 121, 1),
-                                          new Street('George Street', 500, 1000, 4), new Street('Parnel Street', 1, 2304, 5)];
+                                          new Street('George Street', 500, 1000, 4), new Street('Parnel Street', 1, 2304)];
 
 //using spread operator
 const firstPartTownArgument = ['Dublin', [park1, park2]];
