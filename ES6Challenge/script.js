@@ -1,14 +1,14 @@
-class Element{
-    constructor(name,buildYear){
+class Element {
+    constructor(name, buildYear) {
         this.name = name;
         this.buildYear = buildYear;
     }
 }
 
-class Park extends Element{
+class Park extends Element {
 
     constructor(name, buildYear, parkArea, treesNumber) {
-        super(name,buildYear);
+        super(name, buildYear);
         this.parkArea = parkArea;
         this.treesNumber = treesNumber;
     }
@@ -22,20 +22,28 @@ class Park extends Element{
     }
 }
 
-class Street extends Element{
+class Street extends Element {
 
     constructor(name, buildYear, slength, sizeClassification) {
-        super(name,buildYear);
+        super(name, buildYear);
         this.slength = slength;
         this.sizeClassification = sizeClassification;
     }
 
-    getStreetLength() {
-        return this.slength;
+    classifyStreet() {
+        const classification = new Map();
+        classification.set(1, 'tiny');
+        classification.set(2, 'small');
+        classification.set(3, 'medium');
+        classification.set(4, 'big');
+        classification.set(5, 'huge');
+        
+        return `${this.name}  build in ${this.buildYear}, is a ${classification.get(this.sizeClassification)} street`;
+
     }
 
-    presentStreet() {
-        return `${this.name}  build in ${this.buildYear}, is a ${this.sizeClassification} street`;
+    getStreetLength() {
+        return this.slength;
     }
 
 
@@ -74,7 +82,7 @@ class Town {
     mostTree() {
         let biggest;
     }
-    
+
     allParkTreeDensity() {
         for (let i of this.parks) {
             console.log(i.treeDensity());
@@ -96,7 +104,7 @@ class Town {
 
     presentAllSteet() {
         for (let i of this.streets) {
-            console.log(i.presentStreet());
+            console.log(i.classifyStreet());
         }
     }
 
@@ -128,11 +136,11 @@ const street3 = new Street('George Street', 500, 1000, 'big');
 const street4 = new Street('Parnel Street', 1, 2304, 'huge');*/
 
 //destructuring
-const [street1,street2,street3,street4] = [new Street('Grande Road', 1500, 605, 'medium'), new Street('Oconnel Street', 1000, 121, 'small'),
-                                          new Street('George Street', 500, 1000, 'big'),new Street('Parnel Street', 1, 2304, 'huge')];
+const [street1, street2, street3, street4] = [new Street('Grande Road', 1500, 605, 2), new Street('Oconnel Street', 1000, 121, 1),
+                                          new Street('George Street', 500, 1000, 4), new Street('Parnel Street', 1, 2304, 5)];
 
 //using spread operator
-const firstPartTownArgument = ['Dublin',[park1,park2]];
+const firstPartTownArgument = ['Dublin', [park1, park2]];
 
 //using rest parameters only for learning purposes
 const town = new Town(...firstPartTownArgument, street1, street2, street3, street4);
