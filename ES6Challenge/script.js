@@ -1,8 +1,14 @@
-class Park {
-
-    constructor(name, buildYear, parkArea, treesNumber) {
+class Element{
+    constructor(name,buildYear){
         this.name = name;
         this.buildYear = buildYear;
+    }
+}
+
+class Park extends Element{
+
+    constructor(name, buildYear, parkArea, treesNumber) {
+        super(name,buildYear);
         this.parkArea = parkArea;
         this.treesNumber = treesNumber;
     }
@@ -16,11 +22,10 @@ class Park {
     }
 }
 
-class Street {
+class Street extends Element{
 
     constructor(name, buildYear, slength, sizeClassification) {
-        this.name = name;
-        this.buildYear = buildYear;
+        super(name,buildYear);
         this.slength = slength;
         this.sizeClassification = sizeClassification;
     }
