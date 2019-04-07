@@ -116,13 +116,21 @@ class Town {
 const park1 = new Park('Saint Enda\'s Park', 1985, 300, 133);
 const park2 = new Park('Saint Stephen\'s Green Park', 1955, 1400, 1122);
 
+/*
 const street1 = new Street('Grande Road', 1500, 605, 'medium');
 const street2 = new Street('Oconnel Street', 1000, 121, 'small');
 const street3 = new Street('George Street', 500, 1000, 'big');
-const street4 = new Street('Parnel Street', 1, 2304, 'huge');
+const street4 = new Street('Parnel Street', 1, 2304, 'huge');*/
+
+//destructuring
+const [street1,street2,street3,street4] = [new Street('Grande Road', 1500, 605, 'medium'), new Street('Oconnel Street', 1000, 121, 'small'),
+                                          new Street('George Street', 500, 1000, 'big'),new Street('Parnel Street', 1, 2304, 'huge')];
+
+//using spread operator
+const firstPartTownArgument = ['Dublin',[park1,park2]];
 
 //using rest parameters only for learning purposes
-const town = new Town('Dublin', [park1, park2], street1, street2, street3, street4);
+const town = new Town(...firstPartTownArgument, street1, street2, street3, street4);
 
 town.parkReport();
 town.streetReport();
