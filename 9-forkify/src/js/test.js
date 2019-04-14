@@ -1,3 +1,3 @@
 console.log("exporting variable");
 
-export default 24;
+export default { num: "oh my god jesus" };
