@@ -1,8 +1,9 @@
-import number from "./test";
+import * as searchView from "./views/searchView";
 
-const another = 10;
-console.log(
-  `I am importing ${
-    number.num
-  } from inside another module and another variable ${another}`
-);
+import { add as a, multiply as m } from "./views/searchView";
+
+console.log(a(4, 5));
+console.log(m(3, 5));
+
+console.log(searchView.add(4, 5));
+console.log(searchView.multiply(3, 5));

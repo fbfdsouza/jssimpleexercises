@@ -3846,19 +3846,19 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _test = __webpack_require__(/*! ./test */ \"./src/js/test.js\");\n\nvar _test2 = _interopRequireDefault(_test);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar another = 10;\nconsole.log(\"I am importing \" + _test2.default.num + \" from inside another module and another variable \" + another);\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("\n\nvar _searchView = __webpack_require__(/*! ./views/searchView */ \"./src/js/views/searchView.js\");\n\nvar searchView = _interopRequireWildcard(_searchView);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nconsole.log((0, _searchView.add)(4, 5));\nconsole.log((0, _searchView.multiply)(3, 5));\n\nconsole.log(searchView.add(4, 5));\nconsole.log(searchView.multiply(3, 5));\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
-/***/ "./src/js/test.js":
-/*!************************!*\
-  !*** ./src/js/test.js ***!
-  \************************/
+/***/ "./src/js/views/searchView.js":
+/*!************************************!*\
+  !*** ./src/js/views/searchView.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nconsole.log(\"exporting variable\");\n\nexports.default = { num: \"oh my god jesus\" };\n\n//# sourceURL=webpack:///./src/js/test.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar multiply = exports.multiply = function multiply(a, b) {\n  return a * b;\n};\nvar add = exports.add = function add(a, b) {\n  return a + b;\n};\n\n//# sourceURL=webpack:///./src/js/views/searchView.js?");
 
 /***/ }),
 
