@@ -1,9 +1,30 @@
+import Search from "./models/Search";
 import * as searchView from "./views/searchView";
+import { elements } from "./views/base";
 
-import { add as a, multiply as m } from "./views/searchView";
+const state = {};
 
-console.log(a(4, 5));
-console.log(m(3, 5));
+const controlSearch = async () => {
+  //Get query from UI
+  const query = "cake"; //Todo
 
-console.log(searchView.add(4, 5));
-console.log(searchView.multiply(3, 5));
+  if (query) {
+    //2 New search object and add to state
+    state.search = new Search(searchView.getInput());
+
+    //Prepare UI for results
+    searchView.clearInputField();
+    searchView.clearRecipeList();
+
+    //4 Search for recipes
+    await state.search.getResults();
+
+    //5 Render results on UI
+    searchView.listRecipes(state.search.recipes);
+  }
+};
+
+elements.searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+  controlSearch();
+});
