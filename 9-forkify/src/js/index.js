@@ -1,6 +1,7 @@
 import Search from "./models/Search";
 import * as searchView from "./views/searchView";
 import { elements, renderLoader, clearLoader } from "./views/base";
+import Recipe from "./models/Recipe";
 
 const state = {};
 
@@ -40,3 +41,7 @@ elements.loadButtonsArea.addEventListener("click", e => {
     searchView.listRecipes(state.search.recipes, goToPage);
   }
 });
+
+const recipe = new Recipe(46956);
+recipe.getRecipe();
+console.log(recipe);
