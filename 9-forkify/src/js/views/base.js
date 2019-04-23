@@ -4,6 +4,7 @@ export const elements = {
   recipeResultList: document.querySelector(".results__list"),
   leftPanel: document.querySelector(".results"),
   loadButtonsArea: document.querySelector(".results__pages"),
+  recipe: document.querySelector(".recipe"),
   loader: "loader"
 };
 
