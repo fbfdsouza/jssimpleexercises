@@ -5,6 +5,7 @@ export const elements = {
   leftPanel: document.querySelector(".results"),
   loadButtonsArea: document.querySelector(".results__pages"),
   recipe: document.querySelector(".recipe"),
+  shopping: document.querySelector(".shopping__list"),
   loader: "loader"
 };
 

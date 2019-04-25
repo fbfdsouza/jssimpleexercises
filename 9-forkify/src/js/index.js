@@ -1,8 +1,11 @@
 import Search from "./models/Search";
+import Recipe from "./models/Recipe";
+import ShoppingList from "./models/ShoppingList";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
+import * as shoppingListView from "./views/shoppingListView";
+
 import { elements, renderLoader, clearLoader } from "./views/base";
-import Recipe from "./models/Recipe";
 
 const state = {};
 
@@ -53,20 +56,25 @@ elements.loadButtonsArea.addEventListener("click", e => {
 const controlRecipe = async () => {
   const id = window.location.hash.replace("#", "");
 
-  state.recipe = new Recipe(id);
-  renderLoader(elements.recipe);
+  if (id) {
+    state.recipe = new Recipe(id);
+    renderLoader(elements.recipe);
 
-  try {
-    await state.recipe.getRecipe();
-    clearLoader();
-    state.recipe.calcTime();
-    state.recipe.calcServings();
-    state.recipe.parseIngredients();
     recipeView.clearRecipeView();
-    recipeView.renderRecipe(state.recipe);
-  } catch (error) {
-    clearLoader();
-    alert(error);
+
+    if (state.search) searchView.highlightSelected(id);
+
+    try {
+      await state.recipe.getRecipe();
+      clearLoader();
+      state.recipe.calcTime();
+      state.recipe.calcServings();
+      state.recipe.parseIngredients();
+      recipeView.renderRecipe(state.recipe);
+    } catch (error) {
+      clearLoader();
+      alert(error);
+    }
   }
 };
 
@@ -75,3 +83,28 @@ window.addEventListener("hashchange", controlRecipe);
 ["hashchange", "load"].forEach(event =>
   window.addEventListener(event, controlRecipe)
 );
+
+elements.recipe.addEventListener("click", e => {
+  if (e.target.matches(".btn-decrease, .btn-decrease *")) {
+    if (state.recipe.servings > 1) state.recipe.updateServings("dec");
+    recipeView.updateServingsIngredients(state.recipe);
+  } else if (e.target.matches(".btn-increase, .btn-increase *")) {
+    state.recipe.updateServings("inc");
+    recipeView.updateServingsIngredients(state.recipe);
+  } else if (e.target.matches(".recipe_btn--add, .recipe_btn--add *")) {
+    controlShoppingList();
+  }
+});
+
+window.l = new ShoppingList();
+
+const controlShoppingList = () => {
+  //create a new list if there is none yet
+  if (!state.list) state.list = new ShoppingList();
+
+  //add each ingredient to the list
+  state.recipe.ingredients.forEach(el => {
+    const item = state.list.addItem(el.count, el.unit, el.ingredient);
+    shoppingListView.renderItem(item);
+  });
+};

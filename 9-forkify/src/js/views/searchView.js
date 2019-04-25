@@ -9,6 +9,15 @@ export const clearRecipeList = () => {
   elements.loadButtonsArea.innerHTML = "";
 };
 
+export const highlightSelected = id => {
+  const resultArray = Array.from(document.querySelectorAll(".results_link"));
+  resultArray.forEach(el => el.classList.remove("results_link--active"));
+
+  document
+    .querySelector(`a[href="#${id}"]`)
+    .classList.add("results__link--active");
+};
+
 const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];
 
