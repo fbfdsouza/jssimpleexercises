@@ -1,5 +1,6 @@
 import Search from "./models/Search";
 import Recipe from "./models/Recipe";
+import Likes from "./models/Likes";
 import ShoppingList from "./models/ShoppingList";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
@@ -30,7 +31,7 @@ const controlSearch = async () => {
       searchView.listRecipes(state.search.recipes);
       clearLoader();
     } catch (error) {
-      alert(error);
+      console.log(error);
       clearLoader();
     }
   }
@@ -73,7 +74,7 @@ const controlRecipe = async () => {
       recipeView.renderRecipe(state.recipe);
     } catch (error) {
       clearLoader();
-      alert(error);
+      console.log(error);
     }
   }
 };
@@ -93,6 +94,8 @@ elements.recipe.addEventListener("click", e => {
     recipeView.updateServingsIngredients(state.recipe);
   } else if (e.target.matches(".recipe_btn--add, .recipe_btn--add *")) {
     controlShoppingList();
+  } else if (e.target.matches(".recipe__love, .recipe__love *")) {
+    controlLikes();
   }
 });
 
@@ -118,3 +121,22 @@ elements.shopping.addEventListener("click", e => {
     state.list.updateCount(id, val);
   }
 });
+
+//controlLike
+
+const controlLikes = () => {
+  if (!state.likes) state.likes = new Likes();
+
+  if (state.likes.isLiked(state.recipe.recipeId)) {
+    state.likes.addLike(
+      state.recipe.recipeId,
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.img
+    );
+  } else {
+    state.likes.deleteLike(state.recipe.recipeId);
+  }
+
+  console.log(state.likes);
+};
