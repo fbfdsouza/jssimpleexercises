@@ -96,8 +96,6 @@ elements.recipe.addEventListener("click", e => {
   }
 });
 
-window.l = new ShoppingList();
-
 const controlShoppingList = () => {
   //create a new list if there is none yet
   if (!state.list) state.list = new ShoppingList();
@@ -108,3 +106,15 @@ const controlShoppingList = () => {
     shoppingListView.renderItem(item);
   });
 };
+
+elements.shopping.addEventListener("click", e => {
+  const id = e.target.closest("li").dataset.itemid;
+
+  if (e.target.matches(".shopping__delete, .shopping__delete *")) {
+    state.list.deleteItem(id);
+    shoppingListView.deleteItem(id);
+  } else if (e.target.matches(".shopping__count__count-value")) {
+    const val = parseFloat(e.target.value, 10);
+    state.list.updateCount(id, val);
+  }
+});
