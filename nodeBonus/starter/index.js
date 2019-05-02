@@ -8,7 +8,6 @@ const laptops = JSON.parse(file);
 
 const server = http.createServer((request, response) => {
   const pathName = url.parse(request.url, true).pathname;
-  console.log(pathName);
   const id = url.parse(request.url, true).query.id;
 
   //all laptops
@@ -37,7 +36,7 @@ const server = http.createServer((request, response) => {
     );
 
     //laptop detail
-  } else if ((pathName === "/laptop") & (id < 5)) {
+  } else if (pathName === "/laptop" && id < 5) {
     response.writeHead(200, { "Content-Type": "text/html" });
 
     const laptop = laptops[id];
